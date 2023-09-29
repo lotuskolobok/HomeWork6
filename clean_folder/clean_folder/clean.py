@@ -149,26 +149,9 @@ def main(folder_path):
     get_folder_objects(folder_path)
 
 if __name__ == '__main__':
-    #path = sys.argv[-1]
-    path = 'd:\\temp'
+    path = sys.argv[1]
     print(f"Scan path: {path}")
 
     arg = Path(path)
     main(arg.resolve())
 
-# if __name__ == '__main__':
-#     path = sys.argv[1]
-#     print(f"Start in {path}")
-
-#     arg = Path(path)
-#     scan(arg)
-
-#     print(f"jpeg: {jpeg_files}\n")
-#     print(f"jpg: {jpg_files}\n")
-#     print(f"png: {png_files}\n")
-#     print(f"txt: {txt_files}\n")
-#     print(f"docx: {docx_files}\n")
-#     print(f"archives: {archives}\n")
-#     print(f"unknown: {others}\n")
-#     print(f"All extensions: {extensions}\n")
-#     print(f"Unknown extensions: {unknown}\n")
