@@ -122,7 +122,15 @@ def get_folder_objects(root_path):
             except OSError:
                 pass
 
-def main(folder_path):
+def main():
+    
+    folder_path = sys.argv[1]
+    
+    print(f"Scan path: {folder_path}")
+
+    arg = Path(folder_path)
+    folder_path = arg.resolve()
+
     scan(folder_path)
 
     for file in jpeg_files:
@@ -149,10 +157,6 @@ def main(folder_path):
     get_folder_objects(folder_path)
 
 if __name__ == '__main__':
-    path = sys.argv[1]
-    print(f"Scan path: {path}")
-
-    arg = Path(path)
-    main(arg.resolve())
+    main()
     
 
