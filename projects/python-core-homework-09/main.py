@@ -2,6 +2,7 @@
 phone_book = {}
 exit_cmd = ['good bye', 'close', 'exit', 'quit', 'end']
 
+
 def add_phone(my_string: str):
     tmp = my_string.split()
     if len(tmp) == 2:
@@ -16,6 +17,7 @@ def add_phone(my_string: str):
 
     else:
         raise IndexError
+
 
 def change_phone(my_string: str):
     tmp = my_string.split()
@@ -38,6 +40,7 @@ def change_phone(my_string: str):
     else:
         raise IndexError
 
+
 def phone_show(my_string: str):
     tmp = my_string.split()
     if len(tmp) == 1:
@@ -55,24 +58,24 @@ def call_bot():
     is_break = False
 
     while True:
-        
+
         try:
-            
+
             command = input('Enter your command: ').lower()
 
             if command == 'hello':
                 result = 'How can I help you?'
-            
+
             elif command in exit_cmd:
                 result = '-'*10 + '\nBye-Bye!:)\n' + '-'*10
                 is_break = True
-                
+
             elif command.startswith('add'):
                 result = add_phone(command.removeprefix('add'))
 
             elif command.startswith('change'):
                 result = change_phone(command.removeprefix('change'))
-            
+
             elif command.startswith('show all'):
                 result = phone_book
 
@@ -82,28 +85,24 @@ def call_bot():
             else:
                 raise Warning
 
-            
-            print (result)
-            
+            print(result)
+
             if is_break:
                 break
 
         except ValueError:
-            print ('-=ERROR-=: Incorrect value')
-        
+            print('-=ERROR-=: Incorrect value')
+
         except KeyError:
-            print ('-=ERROR-=: Enter user name')
-        
+            print('-=ERROR-=: Enter user name')
+
         except IndexError:
-            print ('-=ERROR-=: Incorrect count of args')
-        
+            print('-=ERROR-=: Incorrect count of args')
+
         except Warning:
-            print ('-=ERROR-=: Incorrect command')
-        
-        
-    
+            print('-=ERROR-=: Incorrect command')
+
+
 if __name__ == '__main__':
 
     call_bot()
-
-    

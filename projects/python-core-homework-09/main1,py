@@ -94,7 +94,6 @@ def call_bot():
         if is_break:
             break
 
-
 if __name__ == '__main__':
 
     call_bot()
