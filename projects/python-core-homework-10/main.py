@@ -9,8 +9,11 @@ class Field:
 
 
 class Name(Field):
-    # реалізація класу
-    pass
+    def __init__(self, value):
+        self.value = value
+    
+    def __str__(self):
+        return str(self.value)
 
 
 class Phone(Field):
@@ -50,10 +53,14 @@ class Record:
 
     def edit_phone(self, old_phone, new_phone):
         result = False
-        for phone in self.phones:
-            if phone.value == old_phone:
-                phone.value = new_phone
-                result = True
+        phone = Phone(new_phone)
+        if phone.validate(new_phone):
+            for phone in self.phones:
+                if phone.value == old_phone:
+                    phone.value = new_phone
+                    result = True
+        else:
+            raise ValueError
         
         if result == False:
             raise ValueError
@@ -72,7 +79,10 @@ class AddressBook(UserDict):
         self.data[record.name.value] = record
 
     def find(self, name: str):
-        return self.data[name]
+        if name in self.data:
+            return self.data[name]
+        else:
+            return None
 
     def delete(self, name: str):
         if name in self.data:
