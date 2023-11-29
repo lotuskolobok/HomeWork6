@@ -11,19 +11,20 @@ class Field:
 class Name(Field):
     pass
 
+
 class Phone(Field):
     def __init__(self, value):
         self.validate(value)
         super().__init__(value)
 
+    def __str__(self):
+        return self.value
+    
     def validate(self, value: str):
         if len(value) == 10 and value.isdigit():
             self.value = value
         else:
             raise ValueError('Phone should be 10 digits')
-
-    def __str__(self):
-        return self.value
 
 
 class Record:
@@ -36,13 +37,6 @@ class Record:
 
     def add_phone(self, phone_number: str):
         self.phones.append(Phone(phone_number))
-
-
-    # def add_phone(self, phone_number: str):
-    #     phone = Phone(phone_number)
-    #     if phone.validate(phone_number):
-    #         if phone not in self.phones:
-    #             self.phones.append(phone)
 
     def find_phone(self, phone_number: str):
         result = False
@@ -60,22 +54,6 @@ class Record:
             phone_obj.value = new_phone
         else:
             raise ValueError
-
-    # def edit_phone(self, old_phone, new_phone):
-    #     result = False
-    #     phone = Phone(new_phone)
-    #     if phone.validate(new_phone):
-    #         for phone in self.phones:
-    #             if phone.value == old_phone:
-    #                 phone.value = new_phone
-    #                 result = True
-    #     else:
-    #         raise ValueError
-        
-    #     if result == False:
-    #         raise ValueError
-
-        
 
     def remove_phone(self, rem_phone):
         for phone in self.phones:
@@ -135,7 +113,3 @@ if __name__ == "__main__":
 
     # Видалення запису Jane
     book.delete("Jane")
-
-
-
-
