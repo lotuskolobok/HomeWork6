@@ -48,8 +48,8 @@ class Record:
         result = False
         for phone in self.phones:
             if phone.value == phone_number:
+                result = True
                 return phone
-            result = True
         
         if result == False:
             raise ValueError
