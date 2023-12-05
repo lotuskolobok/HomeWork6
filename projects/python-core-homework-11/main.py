@@ -1,5 +1,6 @@
 from collections import UserDict
 from datetime import datetime
+from datetime import date
 
 class Field:
     def __init__(self, value):
@@ -68,8 +69,24 @@ class Record:
 
     # додали метод days_to_birthday, який повертає кількість днів до наступного дня народження контакту, якщо день народження заданий
     def days_to_birthday(self):
-        if self.birthday != None:
-            pass
+
+        if self.birthday.value is None:
+            delta_days = None
+        
+        else:
+            
+            this_date = date.today()
+            birthday_date = date.fromisoformat(str(self.birthday))
+            birthday_date = datetime(year=this_date.year, month=birthday_date.month, day=birthday_date.day).date()
+
+            delta_days = (birthday_date - this_date).days
+
+            if delta_days < 0:
+                birthday_date = datetime(year=this_date.year + 1, month=birthday_date.month, day=birthday_date.day).date()
+
+                delta_days = (birthday_date - this_date).days
+
+        return delta_days
 
     def add_phone(self, phone_number: str):
         self.phones.append(Phone(phone_number))
@@ -166,9 +183,11 @@ if __name__ == "__main__":
     print(f"{john.name}: {found_phone}")  # Виведення: 5555555555
 
     # Виведення дати народження
-    print(jane_record.show_birthday())
-    print(john_record.show_birthday())
-    print(sara_record.show_birthday())
+    print(jane_record.show_birthday(), jane_record.days_to_birthday())
+    print(john_record.show_birthday(), john_record.days_to_birthday())
+    print(sara_record.show_birthday(), sara_record.days_to_birthday())
     
+
+
     # Видалення запису Jane
     book.delete("Jane")
