@@ -25,23 +25,47 @@ class Name(Field):
 
 class Phone(Field):
     def __init__(self, value):
-        self.validate(value)
-        super().__init__(value)
+        self.__value = self.validate(value)
+        super().__init__(self.__value)
 
     def __str__(self):
         return self.value
     
+    # додали getter для атрибуту value
+    @property
+    def value(self):
+        return self.__value
+
+    # додали setter для атрибуту value
+    @value.setter
+    def value(self, value):
+        self.__value = self.validate(value)
+
     def validate(self, value):
+        
         if len(value) == 10 and value.isdigit():
-            self.value = value
+            return value
         else:
             raise ValueError('Phone should be 10 digits')
+            
 
 # додали клас Birthday, який наслідуємо від класу Field
 class Birthday(Field):
     def __init__(self, value):
-        super().__init__(self.validate(value))
-        
+        self.__value = self.validate(value)
+        super().__init__(self.__value)
+    
+    # додали getter для атрибуту value
+    @property
+    def value(self):
+        return self.__value
+
+    # додали setter для атрибуту value
+    @value.setter
+    def value(self, value):
+        self.__value = self.validate(value)
+
+    # додели метод для перевірки правильності вказаної дати
     def validate(self, value):
         if value == None: 
             return None
@@ -74,17 +98,19 @@ class Record:
             delta_days = None
         
         else:
-            
-            this_date = date.today()
-            birthday_date = date.fromisoformat(str(self.birthday))
-            birthday_date = datetime(year=this_date.year, month=birthday_date.month, day=birthday_date.day).date()
-
-            delta_days = (birthday_date - this_date).days
-
-            if delta_days < 0:
-                birthday_date = datetime(year=this_date.year + 1, month=birthday_date.month, day=birthday_date.day).date()
+            try:
+                this_date = date.today()
+                birthday_date = date.fromisoformat(str(self.birthday))
+                birthday_date = datetime(year=this_date.year, month=birthday_date.month, day=birthday_date.day).date()
 
                 delta_days = (birthday_date - this_date).days
+
+                if delta_days < 0:
+                    birthday_date = datetime(year=this_date.year + 1, month=birthday_date.month, day=birthday_date.day).date()
+
+                    delta_days = (birthday_date - this_date).days
+            except:
+                delta_days = None
 
         return delta_days
 
@@ -152,7 +178,7 @@ if __name__ == "__main__":
 
     # Створення запису для John
     john_record = Record("John", "2000-10-05")
-    john_record.add_phone("1234567890")
+    john_record.add_phone("123456789p")
     john_record.add_phone("5555555555")
 
     # Додавання запису John до адресної книги
@@ -167,6 +193,7 @@ if __name__ == "__main__":
     sara_record = Record("Sara")
     sara_record.add_phone("5566997711")
     book.add_record(sara_record)
+    sara_record.birthday = Birthday("1976-07-14")
 
     # Виведення всіх записів у книзі
     for name, record in book.data.items():
