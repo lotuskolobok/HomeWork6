@@ -100,7 +100,7 @@ class Record:
         else:
             try:
                 this_date = date.today()
-                birthday_date = date.fromisoformat(str(self.birthday))
+                birthday_date = date.fromisoformat(str(self.birthday.value))
                 birthday_date = datetime(year=this_date.year, month=birthday_date.month, day=birthday_date.day).date()
 
                 delta_days = (birthday_date - this_date).days
@@ -178,7 +178,7 @@ if __name__ == "__main__":
 
     # Створення запису для John
     john_record = Record("John", "2000-10-05")
-    john_record.add_phone("123456789p")
+    john_record.add_phone("1234567890")
     john_record.add_phone("5555555555")
 
     # Додавання запису John до адресної книги
@@ -194,6 +194,7 @@ if __name__ == "__main__":
     sara_record.add_phone("5566997711")
     book.add_record(sara_record)
     sara_record.birthday = Birthday("1976-07-14")
+    
 
     # Виведення всіх записів у книзі
     for name, record in book.data.items():
