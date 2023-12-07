@@ -24,9 +24,6 @@ class Name(Field):
 
 
 class Phone(Field):
-    # def __init__(self, value):
-    #     self.__value = self.validate(value)
-    #     super().__init__(self.__value)
 
     def __str__(self):
         return self.value
@@ -51,9 +48,6 @@ class Phone(Field):
 
 # додали клас Birthday, який наслідуємо від класу Field
 class Birthday(Field):
-    # def __init__(self, value):
-    #     self.__value = self.validate(value)
-    #     super().__init__(self.__value)
     
     # додали getter для атрибуту value
     @property
