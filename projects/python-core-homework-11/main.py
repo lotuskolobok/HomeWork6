@@ -24,19 +24,22 @@ class Name(Field):
 
 
 class Phone(Field):
-    
+    # def __init__(self, value):
+    #     self.__value = self.validate(value)
+    #     super().__init__(self.__value)
+
     def __str__(self):
         return self.value
     
     # додали getter для атрибуту value
     @property
     def value(self):
-        return self.__value
+        return self._Field__value
 
     # додали setter для атрибуту value
     @value.setter
     def value(self, value):
-        self.__value = self.validate(value)
+        self._Field__value = self.validate(value)
 
     def validate(self, value):
         
@@ -48,16 +51,19 @@ class Phone(Field):
 
 # додали клас Birthday, який наслідуємо від класу Field
 class Birthday(Field):
+    # def __init__(self, value):
+    #     self.__value = self.validate(value)
+    #     super().__init__(self.__value)
     
     # додали getter для атрибуту value
     @property
     def value(self):
-        return self.__value
+        return self._Field__value
 
     # додали setter для атрибуту value
     @value.setter
     def value(self, value):
-        self.__value = self.validate(value)
+        self._Field__value = self.validate(value)
 
     # додели метод для перевірки правильності вказаної дати
     def validate(self, value):
